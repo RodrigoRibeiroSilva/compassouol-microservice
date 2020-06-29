@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Cidade extends BaseObject {
 	
@@ -14,6 +16,7 @@ public class Cidade extends BaseObject {
 	private String nome, estado;
 	
 	@OneToMany(mappedBy = "cidade")
+	@JsonIgnore
 	private List<Cliente> listaDeClientes;
 
 	public Cidade() {
