@@ -3,8 +3,10 @@ package com.compassouol.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+@Entity
 public class Cidade extends BaseObject {
 	
 	private static final long serialVersionUID = 1L;

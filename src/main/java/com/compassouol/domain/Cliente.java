@@ -1,8 +1,10 @@
 package com.compassouol.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Cliente extends BaseObject {
 
 	private static final long serialVersionUID = 1L;
