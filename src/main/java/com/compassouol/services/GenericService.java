@@ -16,32 +16,31 @@ import com.compassouol.services.exceptions.ObjectNotFoundException;
 public class GenericService<E extends BaseObject> {
 	
 	@Autowired
-	protected GenericRepository<E> repo;
+	protected GenericRepository<E> repository;
 	
-	public Page<E> findAll(Pageable pageable){
-		return repo.findAll(pageable);
+	public Page<E> buscar(Pageable pageable){
+		return repository.findAll(pageable);
 	}
 	
-	public E findById(Long id) {
-		Optional<E> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Registro não encontrado."));
+	public E buscarPorId(Long id) {
+		Optional<E> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException());
 	}
 	
-	public E insert(E dto) {
-		return repo.save(dto);
+	public E inserir(E dto) {
+		return repository.save(dto);
 	}
 	
-	public E update(E obj, Long id) {
-		E objTracked = findById(id);
-		objTracked = obj;
-		return repo.save(objTracked);
+	public E atualizar(E obj, Long id) {
+		E objEncontrado = buscarPorId(id);
+		objEncontrado = obj;
+		return repository.save(objEncontrado);
 	}
-	
-	public void delete(Long id) {
-		findById(id);
+		
+	public void deletar(Long id) {
+		buscarPorId(id);
 		try {
-			repo.deleteById(id);
+			repository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não foi possível excluir esse registro");
 		}	

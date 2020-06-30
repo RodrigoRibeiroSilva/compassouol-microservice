@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.compassouol.domain.Cidade;
 import com.compassouol.domain.Cliente;
+import com.compassouol.dto.AtualizarClienteDTO;
 import com.compassouol.repositories.ClienteRepository;
 import com.compassouol.services.exceptions.DataIntegrityException;
 import com.compassouol.services.exceptions.ObjectNotFoundException;
@@ -24,19 +25,25 @@ public class ClienteService extends GenericService<Cliente> {
 
 	@Override
 	@Transactional
-	public Cliente insert(Cliente cliente) {
+	public Cliente inserir(Cliente cliente) {
 		try {
-			Cidade cidade = cidadeService.findByNome(cliente.getCidade().getNome());
+			Cidade cidade = cidadeService.buscarCidadePeloNome(cliente.getCidade().getNome());
 			cliente.setCidade(cidade);
-			return repo.save(cliente);
+			return repository.save(cliente);
 		} catch (ObjectNotFoundException e) {
 			throw new DataIntegrityException("Cidade inválida");
 		}
 
 	}
 
-	public Cliente findByNome(String nome) {
+	public Cliente buscarClientePeloNome(String nome) {
 		Optional<Cliente> cliente = clienteRepository.findByNome(nome);
-		return cliente.orElseThrow(() -> new ObjectNotFoundException("Registro não encontrado."));
+		return cliente.orElseThrow(() -> new ObjectNotFoundException());
+	}
+
+	public void alterarNome(AtualizarClienteDTO clienteDTO, Long id) {
+		Cliente clienteModificado = buscarPorId(id);
+		clienteModificado.setNome(clienteDTO.getNome());
+		atualizar(clienteModificado, id);
 	}
 }

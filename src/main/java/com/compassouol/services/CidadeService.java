@@ -15,15 +15,13 @@ public class CidadeService extends GenericService<Cidade> {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 
-	public Cidade findByNome(String nome) {
+	public Cidade buscarCidadePeloNome(String nome) {
 		Optional<Cidade> obj = cidadeRepository.findByNome(nome);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Registro não encontrado."));
+		return obj.orElseThrow(() -> new ObjectNotFoundException());
 	}
 	
-	public Cidade findByEstado(String estado) {
+	public Cidade buscarCidadePeloEstado(String estado) {
 		Optional<Cidade> obj = cidadeRepository.findByEstado(estado);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Registro não encontrado."));
+		return obj.orElseThrow(() -> new ObjectNotFoundException());
 	}
 }
