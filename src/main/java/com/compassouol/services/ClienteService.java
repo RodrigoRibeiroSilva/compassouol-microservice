@@ -1,5 +1,6 @@
 package com.compassouol.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -27,7 +28,7 @@ public class ClienteService extends GenericService<Cliente> {
 	@Transactional
 	public Cliente inserir(Cliente cliente) {
 		try {
-			Cidade cidade = cidadeService.buscarCidadePeloNome(cliente.getCidade().getNome());
+			Cidade cidade = cidadeService.buscarPorId(cliente.getCidade().getId());
 			cliente.setCidade(cidade);
 			return repository.save(cliente);
 		} catch (ObjectNotFoundException e) {
@@ -36,8 +37,8 @@ public class ClienteService extends GenericService<Cliente> {
 
 	}
 
-	public Cliente buscarClientePeloNome(String nome) {
-		Optional<Cliente> cliente = clienteRepository.findByNome(nome);
+	public List<Cliente> buscarClientePeloNome(String nome) {
+		Optional<List<Cliente>> cliente = clienteRepository.findByNome(nome);
 		return cliente.orElseThrow(() -> new ObjectNotFoundException());
 	}
 

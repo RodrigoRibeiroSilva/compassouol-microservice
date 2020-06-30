@@ -1,5 +1,6 @@
 package com.compassouol.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,13 @@ public class CidadeService extends GenericService<Cidade> {
 	@Autowired
 	private CidadeRepository cidadeRepository;
 
-	public Cidade buscarCidadePeloNome(String nome) {
-		Optional<Cidade> obj = cidadeRepository.findByNome(nome);
+	public List<Cidade> buscarCidadePeloNome(String nome) {
+		Optional<List<Cidade>> obj = cidadeRepository.findByNome(nome);
 		return obj.orElseThrow(() -> new ObjectNotFoundException());
 	}
 	
-	public Cidade buscarCidadePeloEstado(String estado) {
-		Optional<Cidade> obj = cidadeRepository.findByEstado(estado);
+	public List<Cidade> buscarCidadePeloEstado(String estado) {
+		Optional<List<Cidade>> obj = cidadeRepository.findByEstado(estado);
 		return obj.orElseThrow(() -> new ObjectNotFoundException());
 	}
 }

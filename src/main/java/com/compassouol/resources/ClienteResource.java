@@ -1,5 +1,7 @@
 package com.compassouol.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,8 +23,8 @@ public class ClienteResource extends GenericResource<Cliente>{
 	private ClienteService clienteService;
 	
 	@RequestMapping(value = "/nome/{nome}", method = RequestMethod.GET)
-	public ResponseEntity<Cliente> buscarClientePeloNome(@PathVariable(value = "nome") String nome) {
-		Cliente obj = clienteService.buscarClientePeloNome(nome);
+	public ResponseEntity<List<Cliente>> buscarClientePeloNome(@PathVariable(value = "nome") String nome) {
+		List<Cliente> obj = clienteService.buscarClientePeloNome(nome);
 		return ResponseEntity.ok().body(obj);
 	}
 	
