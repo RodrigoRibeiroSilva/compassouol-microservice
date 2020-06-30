@@ -19,7 +19,7 @@ public class CidadeResource extends GenericResource<Cidade>{
 	
 	@RequestMapping(value = "/nome/{nome}", method = RequestMethod.GET)
 	public ResponseEntity<Cidade> findByNome(@PathVariable(value = "nome") String nome) {
-		Cidade obj = cidadeService.findByNome(nome);
+		Cidade  obj = cidadeService.findByNome(nome);
 		return ResponseEntity.ok().body(obj);
 	}
 	

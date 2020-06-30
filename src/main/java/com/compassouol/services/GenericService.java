@@ -24,9 +24,8 @@ public class GenericService<E extends BaseObject> {
 	
 	public E findById(Long id) {
 		Optional<E> obj = repo.findById(id);
-		
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: "));
+				"Registro não encontrado."));
 	}
 	
 	public E insert(E dto) {
